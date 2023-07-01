@@ -79,6 +79,7 @@ export default async function Accessaries() {
                     Shop Now
                   </span>
                 </Link>
+                  
               
               </div>
             </div>
