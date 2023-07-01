@@ -6,8 +6,10 @@ import { client } from '@/lib/sanityClient';
 import { urlForImage } from '../../../../sanity/lib/image';
 import { Image as IImage } from 'sanity';
 import SizeOptions from './Sizes';
-import ShopNowButton from '../Buynowbutton';
 import QuantitySelector from './Quantity';
+import BuyNowButton from '../BuyNowButton';
+
+
 
 interface IProduct {
   _id: string;
@@ -121,7 +123,7 @@ export default function Pre({ params }: { params: { id: string } }) {
                   <QuantitySelector />
                 </div>
                 <div className="flex justify-start mt-6 ">
-                <ShopNowButton/>
+                <BuyNowButton/>
                   {/* <ShopNowButton onClick={handleAddToCart} /> */}
                 </div>
             </form>

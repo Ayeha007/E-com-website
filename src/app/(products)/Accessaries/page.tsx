@@ -75,7 +75,7 @@ export default async function Accessaries() {
                 )}
               
               <Link href={`/PreOrder/${item._id}`}>
-                  <span className="inline-block lg:px-32 px-28 py-3 mt-3 text-xs font-medium rounded-md tracking-widest text-white uppercase bg-gray-800 hover:bg-yellow-700">
+                  <span className="inline-block lg:px-32 px-20 py-3 mt-3 text-xs font-medium rounded-md tracking-widest text-white uppercase bg-gray-800 hover:bg-yellow-700">
                     Shop Now
                   </span>
                 </Link>

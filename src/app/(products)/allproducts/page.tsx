@@ -6,9 +6,9 @@ import { Image as IImage } from 'sanity';
 import Link from 'next/link';
 // import Pagination from '@/app/pagination';
 
-export const getProductData: () => Promise<IProduct[]> = async () => {
-  const res: IProduct[] = await client.fetch(
-    `*[_type=="product"]{
+async function getProductData(){
+  const res = await client.fetch(
+ `*[_type=="product"]{
         price,
         sale_price,
         _id,
@@ -29,8 +29,9 @@ interface IProduct {
   details: string;
 }
 
- async function AllProducts(): Promise<JSX.Element> {
-  const data: IProduct[] = await getProductData();
+export default async function AllProducts() {
+  const data= await getProductData();
+
   return (
     <section id="allproducts" className="mt-8">
       <div className="max-w-screen px-5 lg:px-20 py-8 lg:py-16 mx-auto ">
@@ -93,4 +94,3 @@ interface IProduct {
     </section>
   );
 }
-export default AllProducts;

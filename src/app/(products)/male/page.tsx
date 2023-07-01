@@ -6,7 +6,7 @@ import { Image as IImage } from 'sanity';
 import Link from 'next/link';
 // import Pagination from '@/app/pagination';
 
-export const getProductData: () => Promise<IProduct[]> = async () => {
+async function getProductData(){
   const res = await client.fetch(
     `*[_type == 'product' && category->name == 'Male'] {
         _id,
@@ -30,7 +30,7 @@ interface IProduct {
 }
 
 export default async function Male() {
-  const data: IProduct[] = await getProductData();
+  const data= await getProductData();
 
   return (
     <section id="male" className="mt-8">
