@@ -22,18 +22,31 @@ export  async function POST(req: any, res: NextResponse){
           unit_amount: item.price * 100,
 
         },
-        quantity: item.quantity,
+          quantity: item.quantity,
+            adjustable_quantity: {
+              enabled: true,
+              minimum: 1,
+              maximum: 10,
+            },
         
       };
       const redirectURL =
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
+      ? 'https://style-maven-e-com.vercel.app/'
       : 'your deployed url';
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: [transformedItem],
         mode: 'payment',
+        billing_address_collection: "auto",
+        shipping_options: [
+          { shipping_rate: "shr_1NJgGfFFOcRRviB5IKHisAI1" },
+          { shipping_rate: "shr_1NJgFzFFOcRRviB5RNlrrnhM" },
+        ],
+        invoice_creation: {
+          enabled: true,
+        },
         success_url: redirectURL + '/payment/success',
         cancel_url: redirectURL + '/payment/fail',
         metadata: {

@@ -32,7 +32,7 @@ function NavBar() {
               <h3 className="text-2xl font-normal italic tracking-widest text-yellow-700">Maven</h3>
             </div>
             <div className="hidden lg:flex justify-center items-center ml-6">
-              <ul className="flex justify-center">
+              <ul className="flex justify-center cursor-pointer">
                 {categories.map((category, index) => (
                   <li
                     key={index}
@@ -87,7 +87,7 @@ function NavBar() {
         </div>
       </div>
       <div className={`lg:hidden justify-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? 'p-12 md:p-0 block' : 'hidden'}`}>
-        <ul className="h-screen md:h-auto items-center justify-center md:flex">
+        <ul className="h-screen md:h-auto items-center justify-center md:flex cursor-pointer">
           {categories.map((category, index) => (
             <li
               key={index}

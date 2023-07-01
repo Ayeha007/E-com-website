@@ -1,6 +1,7 @@
 import React from 'react';
-import Slider from './Slider';
+import dynamic from 'next/dynamic';
 
+const Slider = dynamic(() => import('./Slider'));
 
 const Hero = () => {
   const sliderImages: string[] = [];

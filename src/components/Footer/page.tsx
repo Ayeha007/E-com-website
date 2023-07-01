@@ -17,7 +17,7 @@ return(
         Small, artisan label that offers a <br/> thoughtfully curated collection of high <br/> quality everyday essentials made.
         </p>
 
-        <div className="mt-6 flex justify-center gap-8">
+        <div className="mt-6 flex justify-center gap-8 cursor-pointer">
            <FaFacebookF className="fill-yellow-700 w-6 h-6 hover:fill-gray-700"/>
            <FaTwitter className="fill-yellow-700 w-6 h-6 hover:fill-gray-700"/>
            <FaLinkedinIn className="fill-yellow-700 w-6 h-6 hover:fill-gray-700"/>
@@ -79,7 +79,7 @@ return(
 
     <div className="mt-16 border-t border-gray-700 pt-8">
       <p className="text-center text-normal text-gray-500">
-       Copyright © 2023 Style Maven. All rights reserved.
+       Copyright © 2023 Style Maven. All rights reserved. Created By Hussain Studio
       </p>
     </div>
   </div>

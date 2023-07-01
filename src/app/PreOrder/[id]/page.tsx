@@ -8,7 +8,7 @@ import { Image as IImage } from 'sanity';
 import SizeOptions from './Sizes';
 import QuantitySelector from './Quantity';
 import BuyNowButton from '../BuyNowButton';
-
+import { loadStripe } from '@stripe/stripe-js';
 
 
 interface IProduct {
