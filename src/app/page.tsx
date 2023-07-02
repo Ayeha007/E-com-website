@@ -17,7 +17,7 @@ export default function Home() {
       <UserButton afterSignOutUrl="/"/>
     </div> */}
 
-   <Hero/>
+<Hero images={[]}/>
    {/* @ts-expect-error Async Server Component*/}
    <Promotions/>
    {/* @ts-expect-error Async Server Component*/}
