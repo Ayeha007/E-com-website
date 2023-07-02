@@ -8,6 +8,7 @@ const Hero = () => {
 
   return (
     <div className='lg:py-24 pt-16'>
+      <div>Github Testing</div>
       <Slider images={sliderImages} />
     </div>
   );
