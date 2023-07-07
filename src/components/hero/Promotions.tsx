@@ -2,8 +2,7 @@ import Image from "next/image";
 import { client } from "@/lib/sanityClient";
 import { urlForImage } from "../../../sanity/lib/image";
 import { Image as IImage } from "sanity";
-import Video from "./video";
-import Link from 'next/link';
+
 
 export async function getSaleData() {
   const res = await client.fetch(`*[_type=='sale'][0...2] {

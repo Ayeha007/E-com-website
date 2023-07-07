@@ -7,7 +7,7 @@ import { client } from '@/lib/sanityClient';
 import { urlForImage } from '../../../../sanity/lib/image';
 import { Image as IImage } from 'sanity';
 import SizeOptions from './Sizes';
-import BuyNowButton from '../buynowbutton';
+
 import { Stripe, loadStripe } from '@stripe/stripe-js';
 import { useCounterContext } from '@/components/useCounterContext';
 
@@ -243,7 +243,9 @@ export default function Pre({ params }: { params: { id: string } }) {
                
                 <div className='pt-6'>
                 <Link href={`/checkout`}>
-                <BuyNowButton />
+                 <a className="block rounded bg-gray-800 px-12 py-4 font-normal text-white hover:bg-yellow-700"
+                 > Buy Now</a>
+               
                 </Link>
                 </div>
               </div>
