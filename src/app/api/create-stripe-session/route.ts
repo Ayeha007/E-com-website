@@ -1,61 +1,109 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { Image as IImage } from 'sanity';
+import { urlForImage } from '../../../../sanity/lib/image';
+
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2022-11-15",
 });
 
+type CartProduct = {
+  _id: string;
+  title: string;
+  price: number;
+  quantity: number;
+  image: IImage;
+};
 
-export  async function POST(req: any, res: NextResponse){
-    const {item}= await req.json();
+export async function POST(req: Request) {
+  //const body = await req.json();
 
-    const transformedItem = {
-         price_data: {
-          currency: 'usd',
-          product_data:{
-            name: item.name,
-            description: item.description,
-            images:[item.image],
-            metadata:{},
+  let cartData: CartProduct[] = [];
+  let billedItems: {
+    price_data: {
+      currency: string;
+      product_data: { name: string; images: string[] };
+      unit_amount: number;
+    };
+    quantity: number;
+    adjustable_quantity: { enabled: boolean; minimum: number; maximum: number };
+  }[] = [];
 
-          },
-          unit_amount: item.price * 100,
+  const data = await req
+    .json()
+    .then((response) => {
+      cartData = response;
 
-        },
-          quantity: item.quantity,
-            adjustable_quantity: {
-              enabled: true,
-              minimum: 1,
-              maximum: 10,
+      cartData.map((item) => {
+        const transformedItem = {
+          price_data: {
+            currency: 'usd',
+            //product: item._id,
+            product_data: {
+              //id: item._id,
+              name: item.title,
+              images: [urlForImage(item.image).url()],
             },
-        
-      };
+            unit_amount: item.price * 100,
+          },
+          quantity: item.quantity,
+          adjustable_quantity: {
+            enabled: true,
+            minimum: 1,
+            maximum: 10,
+          },
+        };
+        billedItems.push(transformedItem);
+      });
       const redirectURL =
-    process.env.NODE_ENV === 'development'
-      ? 'https://style-maven-e-com.vercel.app/'
-      : 'your deployed url';
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:3000/'
+          : 'https://stylemaven.vercel.app/';
 
-      const session = await stripe.checkout.sessions.create({
+      const session = stripe.checkout.sessions.create({
         payment_method_types: ['card'],
-        line_items: [transformedItem],
+        line_items: billedItems,
         mode: 'payment',
-        billing_address_collection: "auto",
-        shipping_options: [
-          { shipping_rate: "shr_1NJgGfFFOcRRviB5IKHisAI1" },
-          { shipping_rate: "shr_1NJgFzFFOcRRviB5RNlrrnhM" },
-        ],
+        billing_address_collection: 'auto',
+        // shipping_options: [
+        //   { shipping_rate: "shr_1NJgGfFFOcRRviB5IKHisAI1" },
+        //   { shipping_rate: "shr_1NJgFzFFOcRRviB5RNlrrnhM" },
+        // ],
         invoice_creation: {
           enabled: true,
         },
         success_url: redirectURL + '/payment/success',
         cancel_url: redirectURL + '/payment/fail',
         metadata: {
-          images: item.image,
-          name:"some additional info",
-          task:"Usman created a task"
+          name: 'some additional info',
+          task: 'created a task',
         },
       });
 
-    //    console.log("response-------------------",await session);
-    return NextResponse.json(session?.id) ;
-  };
+      const data = session
+        .then((sessionData: Stripe.Response<Stripe.Checkout.Session>) => {
+         console.log('sessionData: ', sessionData);
+
+          return sessionData.url;
+          // return NextResponse.json({
+          //   sessionId: sessionData.id,
+          //   pageURL: sessionData.url,
+          // });
+        })
+        .catch((error) => {
+          console.log('sessionData-error:', error);
+          return null;
+        });
+
+      return data;
+    })
+    .catch((error) => {
+      console.log('error: ', error);
+      return NextResponse.error();
+    });
+
+    console.log('url:', data);
+
+  return NextResponse.json({ data });
+}

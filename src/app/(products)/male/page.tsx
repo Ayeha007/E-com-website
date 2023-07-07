@@ -59,22 +59,17 @@ export default async function Male() {
                   {item.title}
                 </h3>
                 {item.sale_price ? (
-                  <div className="flex space-x-32 lg:space-x-60 items-center mt-1.5">
-                    <p className="my-2 text-md text-green-500 line-through">
+                  <div className="flex justify-center item-center space-x-56 lg:space-x-64 items-center mt-1.5">
+                    <p className="my-2.5 text-md font-normal text-green-500 line-through">
                       ${item.price}
                     </p>
-                    <p className="my-2 text-md text-red-500 font-semibold">
+                    <p className="my-2.5 text-md  text-red-500">
                       ${item.sale_price}
                     </p>
                   </div>
                 ) : (
-                  <p className="my-4 text-sm text-gray-700">${item.price}</p>
+                  <p className="my-3.5 text-md text-gray-700">${item.price}</p>
                 )}
-
-                  <p className="mt-1.5 mx-4 max-w-[100ch] text-xs text-white">
-                    {item.details}
-                  </p>
-
                 <Link href={`/PreOrder/${item._id}`}>
                   <span className="inline-block lg:px-32 px-20 py-3 mt-3 text-xs font-medium rounded-md tracking-widest text-white uppercase bg-gray-800 hover:bg-yellow-700">
                     Shop Now

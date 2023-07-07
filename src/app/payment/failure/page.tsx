@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function page() {
   return (
-    <div>Payment: Fail</div>
+    <div className='lg:text-xl text-sm'>Payment: Fail</div>
   )
 }
