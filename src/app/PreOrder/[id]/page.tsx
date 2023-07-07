@@ -233,7 +233,7 @@ export default function Pre({ params }: { params: { id: string } }) {
                   </button>
                 </div>
               </div>
-              <div className='flex-col justify-start mt-6'>
+              <div className='flex-row flex justify-start mt-6'>
                
                 <button
                   onClick={handleAddToCart}
