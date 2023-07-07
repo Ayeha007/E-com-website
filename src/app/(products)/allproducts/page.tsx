@@ -62,16 +62,16 @@ export default async function AllProducts() {
                   {item.title}
                 </h3>
                 {item.sale_price ? (
-                  <div className="flex space-x-32 lg:space-x-60 items-center mt-1.5">
-                    <p className="my-2 text-md text-green-500 line-through">
+                  <div className="flex justify-center item-center space-x-56 lg:space-x-64 items-center mt-1.5">
+                    <p className="my-2.5 text-md font-normal text-green-500 line-through">
                       ${item.price}
                     </p>
-                    <p className="my-2 text-md text-red-500 font-semibold">
+                    <p className="my-2.5 text-md  text-red-500">
                       ${item.sale_price}
                     </p>
                   </div>
                 ) : (
-                  <p className="my-4 text-sm text-gray-700">${item.price}</p>
+                  <p className="my-3.5 text-md text-gray-700">${item.price}</p>
                 )}
 
                 <p className="mt-1.5 mx-4 max-w-[100ch] text-xs text-white">

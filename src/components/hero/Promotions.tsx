@@ -2,6 +2,8 @@ import Image from "next/image";
 import { client } from "@/lib/sanityClient";
 import { urlForImage } from "../../../sanity/lib/image";
 import { Image as IImage } from "sanity";
+import Video from "./video";
+import Link from 'next/link';
 
 export async function getSaleData() {
   const res = await client.fetch(`*[_type=='sale'][0...2] {
@@ -21,7 +23,7 @@ export default async function Promotions() {
 
   return (
     <section className="text-gray-600 body-font">
-      <div className="container px-5 pt-64 lg:pt-1 mx-auto flex flex-wrap">
+      <div className="container px-5 pt-80 lg:pt-1 mx-auto flex flex-wrap">
         <div className="lg:w-2/3 w-full mx-auto">
           <div className="flex flex-wrap w-full py-32 px-10 relative mb-4">
             {data.map((item) => (
@@ -51,6 +53,8 @@ export default async function Promotions() {
               </div>
             ))}
           </div>
+
+          
         </div>
       </div>
     </section>

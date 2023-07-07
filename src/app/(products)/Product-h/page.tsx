@@ -4,6 +4,7 @@ import { client } from '@/lib/sanityClient';
 import { urlForImage } from '../../../../sanity/lib/image';
 import { Image as IImage } from 'sanity';
 import Link from 'next/link';
+import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
 
 export const getProductData: () => Promise<IProduct[]> = async () => {
   const res = await client.fetch(
@@ -46,7 +47,12 @@ export default async function Producth() {
         {/* Horizontal Cards */}
 
         <div className="scrollbar-hide overflow-x-auto">
+        {/* <div className='flex justify-center item-center space-x-[200px]'>
+                <BsFillArrowLeftCircleFill/>
+                <BsFillArrowRightCircleFill/>
+              </div> */}
           <div className="flex gap-4 mt-8 justify-start">     
+      
             {data.map((item: IProduct) => (
             <div key={item._id} className="flex-shrink-0 w-72 sm:w-1/4 shadow-lg">
             <div className="relative block overflow-hidden group">
@@ -59,6 +65,7 @@ export default async function Producth() {
                   height={500}
                 />
               )}
+             
               <div className="absolute inset-0 flex flex-col items-start justify-end p-6 group-hover:scale-105 sm:h-[450px] group-hover:rounded-lg">
                 <div className="flex-col justify-center items-center h-44 rounded-md bg-gray-500/25">
                   <h3 className="mt-2 mx-4 text-xl font-semibold text-white">
@@ -66,15 +73,15 @@ export default async function Producth() {
                   </h3>
                   {item.sale_price ? (
                     <div className="flex gap-[100px] items-center mt-1.5 mx-4">
-                      <p className="text-xl font-semibold text-white line-through">
+                      <p className="text-xl font-normal text-white line-through">
                         ${item.price}
                       </p>
-                      <p className="mt-0.5 text-2xl font-bold text-red-500">
+                      <p className="mt-0.5 text-2xl font-normal text-red-500">
                         ${item.sale_price}
                       </p>
                     </div>
                   ) : (
-                    <p className="mt-1.5 mx-4 text-xl font-semibold text-white">
+                    <p className="mt-1.5 mx-4 text-xl font-normal text-white">
                     ${item.price}
                     </p>
                   )}
@@ -86,6 +93,7 @@ export default async function Producth() {
                     Shop Now
                   </span>
                 </Link>
+                
                 </div>
               </div>
           </div>

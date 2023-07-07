@@ -1,23 +1,3 @@
-// import React from 'react';
-// import dynamic from 'next/dynamic';
-
-// const Slider = dynamic(() => import('./Slider'));
-
-// const Hero = () => {
-//   const sliderImages: string[] = [];
-
-//   return (
-//     <div className='lg:py-24 pt-16'>
-//       <div>Github Testing</div>
-//       <Slider images={sliderImages} />
-//     </div>
-//   );
-// };
-
-// export default Hero;
-
-
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -50,6 +30,7 @@ const Slider = ({ }: SliderProps) => {
           image,
           _id
         }`);
+        console.log("banner-image-res: ", res);
         const data: { image: IImage }[] = res;
         const imageUrls = data.map((item) => urlForImage(item.image).url());
         setSliderImages(imageUrls);
@@ -61,13 +42,6 @@ const Slider = ({ }: SliderProps) => {
     fetchSliderImages();
   }, []);
 
-  // useEffect(() => {
-  //   const interval = setInterval(nextSlide, 5000);
-
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [sliderImages]);
   useEffect(() => {
     const nextSlide = (): void => {
       setCurrentSlide((prev) => (prev === sliderImages.length - 1 ? 0 : prev + 1));
@@ -101,9 +75,9 @@ const Slider = ({ }: SliderProps) => {
 
       {/* Mobile Styles */}
       <style jsx>{`
-        @media (max-width: 639px) {
+        @media (max-width: 640px) {
           .h-full {
-            height: 200px; /* Adjust the height as per your requirements */
+            height: 280px; /* Adjust the height as per your requirements */
           }
         }
       `}</style>

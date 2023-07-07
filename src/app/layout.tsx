@@ -2,6 +2,9 @@ import { ClerkProvider } from '@clerk/nextjs'
 import './globals.css'
 import NavBar from '@/components/NavBar/page'
 import Footer from '@/components/Footer/page'
+import { CounterProvider } from '@/components/cartcontext/counterContext'
+
+
 
 export const metadata = {
   title: 'StyleMaven Shopping App',
@@ -17,10 +20,12 @@ export default function RootLayout({
     <html lang="en">
       <ClerkProvider>
         <body>
+          <CounterProvider>
           <NavBar/> 
           {children}
           <Footer/>
-        </body>
+          </CounterProvider>
+        </body> 
       </ClerkProvider> 
     </html>
   )
