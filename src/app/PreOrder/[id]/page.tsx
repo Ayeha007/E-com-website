@@ -233,7 +233,7 @@ export default function Pre({ params }: { params: { id: string } }) {
                   </button>
                 </div>
               </div>
-              <div className='flex-row flex justify-start mt-6'>
+              <div className='flex-col justify-start mt-6'>
                
                 <button
                   onClick={handleAddToCart}
@@ -243,8 +243,8 @@ export default function Pre({ params }: { params: { id: string } }) {
                
                 <div className='pt-6'>
                 <Link href={`/checkout`}>
-                 <a className="block rounded bg-gray-800 px-12 py-4 font-normal text-white hover:bg-yellow-700"
-                 > Buy Now</a>
+                 <button className="block rounded bg-gray-800 px-12 py-4 font-normal text-white hover:bg-yellow-700"
+                 > Buy Now</button>
                
                 </Link>
                 </div>
