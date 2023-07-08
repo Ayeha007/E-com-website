@@ -7,7 +7,7 @@ import { urlForImage } from '../../../sanity/lib/image';
 import { useCounterContext } from '@/components/useCounterContext';
 import { useUser } from '@clerk/nextjs';
 import { AiFillDelete } from 'react-icons/ai';
-import toast, { Toaster } from "react-hot-toast";
+// import toast, { Toaster } from "react-hot-toast";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
