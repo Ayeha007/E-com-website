@@ -1,5 +1,7 @@
 'use client';
+
 import React, { useState, createContext } from 'react';
+
 interface CounterProviderProps {
   children: React.ReactNode;
 }
