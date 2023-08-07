@@ -2,6 +2,7 @@ import Image from "next/image";
 import { client } from "@/lib/sanityClient";
 import { urlForImage } from "../../../sanity/lib/image";
 import { Image as IImage } from "sanity";
+import Video from "./video";
 
 
 export async function getSaleData() {
@@ -52,7 +53,9 @@ export default async function Promotions() {
               </div>
             ))}
           </div>
-
+              <div className="">
+              <Video/>
+              </div>
           
         </div>
       </div>
