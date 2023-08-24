@@ -7,7 +7,6 @@ import { urlForImage } from '../../../sanity/lib/image';
 import { useCounterContext } from '@/components/useCounterContext';
 import { useUser } from '@clerk/nextjs';
 import { AiFillDelete } from 'react-icons/ai';
-// import toast, { Toaster } from "react-hot-toast";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -137,10 +136,9 @@ function CheckOut() {
 
             router.push(data.data);
 
-            // const stripe = loadStripe(
-            //   stripePublishableKey
-            // ) as unknown as Stripe;
-            //stripe.redirectToCheckout({   });
+           // Clear local storage after successful checkout
+          localStorage.removeItem('cart');
+
           })
           .catch((error) => {
             console.log('res-error: ', error);
@@ -243,7 +241,7 @@ function CheckOut() {
             </button> </div>
           <Link
             href='/'
-            className='inline-block text-sm text-gray-500 underline underline-offset-4 transition hover:text-gray-600'
+            className='mt-2 inline-block text-sm text-gray-500 underline underline-offset-4 transition hover:text-gray-600'
           >
             Continue shopping
           </Link>
@@ -254,4 +252,3 @@ function CheckOut() {
 }
 
 export default CheckOut;
-

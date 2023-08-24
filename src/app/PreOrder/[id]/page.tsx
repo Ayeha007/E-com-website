@@ -88,87 +88,12 @@ export default function Pre({ params }: { params: { id: string } }) {
 
   // Logic for adding product to the cart
 
-  // const handleAddToCart = async (event: React.MouseEvent<HTMLElement>) => { 
-  //   event.preventDefault();
-  //   let price = product.on_sale ? product.sale_price : product.price;
-  
-  //   let cartData: CartProduct[] = [];
-  
-  //   let cartProduct: CartProduct = {
-  //     _id: product?._id,
-  //     title: product?.title,
-  //     price: price,
-  //     quantity: quantity,
-  //     image: product?.image[0],
-  //   };
-  
-  //   if (localStorage.getItem('cart')) {
-  //     let data = localStorage.getItem('cart');
-  //     cartData = JSON.parse(data!);
-  //     let idx: number = -1;
-  //     cartData.map((item: CartProduct, index: number) => {
-  //       if (item._id === cartProduct._id) {
-  //         let qty: number = item.quantity;
-  //         qty = qty + cartProduct.quantity;
-  
-  //         cartProduct.quantity = qty;
-  //         idx = index;
-  //       }
-  //     });
-  
-  //     if (idx !== -1) {
-  //       cartData.splice(idx, 1, cartProduct);
-  //     } else {
-  //       cartData.push(cartProduct);
-  //     }
-  //   } else {
-  //     cartData.push(cartProduct);
-  //   }
-  
-  //   console.log('cartProduct: ', cartProduct);
-  //   let totalItems = cartData.length;
-  //   setCounter(totalItems);
-  
-  //   let data = JSON.stringify(cartData);
-  
-  //   localStorage.removeItem('cart');
-  
-  //   setTimeout(() => {
-  //     localStorage.setItem('cart', data);
-  //   }, 1000);
-  
-  //   // Save userId in localStorage
-  //   const userId = localStorage.getItem('user_id') || uuid();
-  //   localStorage.setItem('user_id', userId);
-  
-  //   // Save data to database
-    
-  //   try {
-  //     const res = await fetch('/api/cart', {
-  //       method: 'POST',
-  //       body: JSON.stringify({
-  //         ...cartProduct,
-  //         user_id: userId,
-  //         product_id: product._id, // Add the product_id to the request body
-  //       }),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-
-  //     const result = await res.json();
-  //     console.log(result);
-  //   } catch (error) {
-  //     console.error('Error saving to database:', error);
-  //   }
-  // };
-
   const handleAddToCart = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     let price = product.on_sale ? product.sale_price : product.price;
-
+  
     let cartData: CartProduct[] = [];
-
+  
     let cartProduct: CartProduct = {
       _id: product?._id,
       title: product?.title,
@@ -176,21 +101,59 @@ export default function Pre({ params }: { params: { id: string } }) {
       quantity: quantity,
       image: product?.image[0],
     };
-
+  
+    console.log('cartProduct:', cartProduct); // Log the cartProduct for debugging
+  
+    // Create or retrieve userId from localStorage
+    let userId = localStorage.getItem('user_id');
+    if (!userId) {
+      userId = uuid();
+      localStorage.setItem('user_id', userId);
+    }
+  
+    console.log('userId:', userId); // Log the userId for debugging
+  
+    // Handle server request and response
+    try {
+      const response = await fetch('/api/addtocart', {
+        method: 'POST',
+        body: JSON.stringify({ cartProduct, userId }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        // Update cart counter immediately
+        setCounter(counter + 1);
+        console.log('Item added to cart.');
+      } else {
+        // Handle non-successful response
+        console.log('Request failed:', response.status, response.statusText);
+      }
+    } catch (error) {
+      // Handle fetch error
+      console.log('Fetch error:', error);
+    }
+  
+    // Retrieve existing cart data or create new array
     if (localStorage.getItem('cart')) {
       let data = localStorage.getItem('cart');
       cartData = JSON.parse(String(data));
+  
+      console.log('Existing cartData:', cartData); // Log existing cart data for debugging
+  
       let idx: number = -1;
       cartData.map((item: CartProduct, index: number) => {
         if (item._id === cartProduct._id) {
           let qty: number = item.quantity;
           qty = qty + cartProduct.quantity;
-
+  
           cartProduct.quantity = qty;
           idx = index;
         }
       });
-
+  
       if (idx !== -1) {
         cartData.splice(idx, 1, cartProduct);
       } else {
@@ -199,19 +162,13 @@ export default function Pre({ params }: { params: { id: string } }) {
     } else {
       cartData.push(cartProduct);
     }
-
-    console.log('cartProduct: ', cartProduct);
+  
     let totalItems = cartData.length;
-    setCounter(totalItems);
-
-    let data = JSON.stringify(cartData);
-
-    localStorage.removeItem('cart');
-
-    setTimeout(() => {
-      localStorage.setItem('cart', data);
-    }, 1000);
-  }; 
+  
+    // Update local storage immediately
+    localStorage.setItem('cart', JSON.stringify(cartData));
+    console.log('Updated cartData:', cartData); // Log updated cart data for debugging
+  };
 
   return (
     <section>
@@ -331,5 +288,4 @@ export default function Pre({ params }: { params: { id: string } }) {
     </section>
   );
 }
-
 

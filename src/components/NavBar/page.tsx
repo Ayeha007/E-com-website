@@ -31,6 +31,10 @@ function NavBar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
   
   useEffect(() => {
     if (localStorage.getItem('cart')) {
@@ -130,7 +134,7 @@ function NavBar() {
                 key={index}
                 className="text-xl text-black py-4 px-6 text-center hover:text-yellow-700"
               >
-                <Link href={category.link}>
+                <Link href={category.link} onClick={closeMenu}>
                   {category.name}
                 </Link>
               </li>
@@ -139,7 +143,9 @@ function NavBar() {
             {/* Sign In */}
           {!isLoaded || !isSignedIn ? (
             <div className='block rounded bg-gray-800 px-12 py-3 font-normal text-white hover:bg-yellow-700'>
-              <Link href='/signin'>Sign In</Link>
+              <Link href='/signin' onClick={closeMenu}> 
+              Sign In
+              </Link>
             </div>
           ) : (
             <div className=''>
