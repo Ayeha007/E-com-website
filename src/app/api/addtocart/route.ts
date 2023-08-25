@@ -7,7 +7,7 @@ import { NextResponse, NextRequest } from 'next/server';
 export { GET, POST };
 
 // Define the cartTable schema
-export const cartTable = pgTable("cartTable", {
+export const cartT = pgTable("cartTable", {
     id: serial("id").primaryKey().notNull(),
     user_id: varchar("user_id", { length: 255 }).notNull(),
     product_id: varchar("product_id", { length: 255 }).notNull(),
@@ -16,7 +16,7 @@ export const cartTable = pgTable("cartTable", {
     total_price: integer("total_price").notNull(),
 });
 
-export type Cart = InferModel<typeof cartTable>;
+export type Cart = InferModel<typeof cartT>;
 
 // Initialize the drizzle instance
 export const db = drizzle(sql);
@@ -28,7 +28,7 @@ async function GET(request: NextRequest) {
     console.log("GET request received");
     
     // Use Drizzle ORM to execute a SQL SELECT query to retrieve all entries from the "cartTable"
-    const cartData = await db.select().from(cartTable);
+    const cartData = await db.select().from(cartT);
     
     console.log("Retrieved cart data:", cartData);
     
@@ -63,7 +63,7 @@ async function POST(request: NextRequest) {
     };
     
     // Insert the new cart entry into the "cartTable" using Drizzle ORM
-    const insertedCartEntry = await db.insert(cartTable).values(newCartEntry).returning();
+    const insertedCartEntry = await db.insert(cartT).values(newCartEntry).returning();
     
     // Return the inserted cart entry data as a JSON response
     return NextResponse.json(insertedCartEntry);

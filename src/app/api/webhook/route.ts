@@ -6,7 +6,7 @@ import {headers} from "next/headers"
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
 export  async function POST(req: any, res: any){
 
-
+console.log(endpointSecret + "End Point Secret");
 
     const headerslist = headers();
     
@@ -22,7 +22,7 @@ export  async function POST(req: any, res: any){
           }
         )
 
-        
+        // console.log(process.env.STRIPE_SECRET_KEY + "stripe secret key");
         
         let event 
         
@@ -53,9 +53,9 @@ export  async function POST(req: any, res: any){
         // @ts-ignore
         const userId = customerData.metadata.userId;
 
-        await db.delete(cartTable).where(eq(cartTable.user_id, userId));
+        const res=await db.delete(cartTable).where(eq(cartTable.user_id, userId));
 
-
+        console.log(res)
         console.log( 'payment success-----------------------', session );
         // @ts-ignore
         const line_Items  = await stripe.checkout.sessions.listLineItems(event.data.object!.id);
